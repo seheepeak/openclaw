@@ -14,6 +14,9 @@ HEADLESS="${OPENCLAW_BROWSER_HEADLESS:-${CLAWDBOT_BROWSER_HEADLESS:-0}}"
 
 mkdir -p "${HOME}" "${HOME}/.chrome" "${XDG_CONFIG_HOME}" "${XDG_CACHE_HOME}"
 
+# Clean up stale Chromium lock files from previous runs
+rm -f "${HOME}"/.chrome/Singleton*
+
 Xvfb :1 -screen 0 1280x800x24 -ac -nolisten tcp &
 
 if [[ "${HEADLESS}" == "1" ]]; then
