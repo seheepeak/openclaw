@@ -4,14 +4,21 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    bash \
-    ca-certificates \
-    curl \
-    git \
-    jq \
-    python3 \
-    ripgrep \
+  bash \
+  ca-certificates \
+  curl \
+  git \
+  jq \
+  python3 \
+  ripgrep \
+  python3-pip \
+  gh \
   && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --break-system-package \
+  requests \
+  numpy \
+  yfinance
 
 RUN useradd --create-home --shell /bin/bash sandbox
 USER sandbox
