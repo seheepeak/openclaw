@@ -5,6 +5,7 @@ export DISPLAY=:1
 export HOME=/tmp/openclaw-home
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
+export USER_DATA_DIR="/openclaw-chrome-user-data"
 
 CDP_PORT="${OPENCLAW_BROWSER_CDP_PORT:-${CLAWDBOT_BROWSER_CDP_PORT:-9222}}"
 VNC_PORT="${OPENCLAW_BROWSER_VNC_PORT:-${CLAWDBOT_BROWSER_VNC_PORT:-5900}}"
@@ -12,10 +13,10 @@ NOVNC_PORT="${OPENCLAW_BROWSER_NOVNC_PORT:-${CLAWDBOT_BROWSER_NOVNC_PORT:-6080}}
 ENABLE_NOVNC="${OPENCLAW_BROWSER_ENABLE_NOVNC:-${CLAWDBOT_BROWSER_ENABLE_NOVNC:-1}}"
 HEADLESS="${OPENCLAW_BROWSER_HEADLESS:-${CLAWDBOT_BROWSER_HEADLESS:-0}}"
 
-mkdir -p "${HOME}" "${HOME}/.chrome" "${XDG_CONFIG_HOME}" "${XDG_CACHE_HOME}"
+mkdir -p "${HOME}" "${USER_DATA_DIR}" "${XDG_CONFIG_HOME}" "${XDG_CACHE_HOME}"
 
 # Clean up stale Chromium lock files from previous runs
-rm -f "${HOME}"/.chrome/Singleton*
+rm -f "${USER_DATA_DIR}"/Singleton*
 
 Xvfb :1 -screen 0 1280x800x24 -ac -nolisten tcp &
 
@@ -37,7 +38,7 @@ fi
 CHROME_ARGS+=(
   "--remote-debugging-address=127.0.0.1"
   "--remote-debugging-port=${CHROME_CDP_PORT}"
-  "--user-data-dir=${HOME}/.chrome"
+  "--user-data-dir=${USER_DATA_DIR}"
   "--no-first-run"
   "--no-default-browser-check"
   "--disable-dev-shm-usage"

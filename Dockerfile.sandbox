@@ -15,7 +15,7 @@ RUN apt-get update \
   gh \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --break-system-package \
+RUN pip3 install --break-system-packages \
   requests \
   numpy \
   yfinance
